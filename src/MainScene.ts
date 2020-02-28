@@ -23,8 +23,6 @@ class MainScene extends Phaser.Scene {
     }
 
     preload(): void {
-        // this.game.time.advancedTiming = true;
-
         this.load.image(MainScene.BACKGROUND_URL, MainScene.BACKGROUND_URL);
         this.load.atlas("sprites", "resource/spritesheet.png", "resource/spritesheet.json");
 
