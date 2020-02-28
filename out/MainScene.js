@@ -36,7 +36,7 @@ var MainScene = /** @class */ (function (_super) {
     MainScene.prototype.create = function () {
         this.add.image(0, 0, MainScene.BACKGROUND_URL);
         this.factory = this.dragonbone.factory;
-        // weapons 
+        // right hand weapons 
         this.add.armature("weapon", "weapon_1004");
         var textStyle = { fontSize: 18, color: "#FFFFFF", align: "center" };
         // fps
@@ -87,7 +87,7 @@ var MainScene = /** @class */ (function (_super) {
     };
     // debug operation and fps
     MainScene.prototype.debugOperation = function (opa) {
-        // this.fpsText.text = 'OPA: ' + opa + '; FPS: ' + this.physics.world.fps || 'FPS: --';
+        this.fpsText.text = 'OPA: ' + opa + '; FPS: ' + this.game.loop.actualFps || 'FPS: --';
     };
     // change armature number
     MainScene.prototype.addArmNum = function () {
@@ -187,9 +187,11 @@ var MainScene = /** @class */ (function (_super) {
         for (var i = 0; i < this.armNumOfSlot; i++) {
             var element = this.arms[i];
             if (this.slotNumOneChange > 0) {
+                // 右手武器素材在weapon_1004中
                 var displayName = MainScene.WEAPONLIST[this.slotChangeIdx];
                 this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_r"));
                 if (this.slotNumOneChange > 1) {
+                    // 左手武器素材在mecha_1004d中
                     element.armature.getSlot("weapon_hand_l").displayIndex = this.slotChangeIdx;
                 }
             }

@@ -102,7 +102,7 @@ class MainScene extends Phaser.Scene {
 
     // debug operation and fps
     private debugOperation(opa: string) {
-        // this.fpsText.text = 'OPA: ' + opa + '; FPS: ' + this.physics.world.fps || 'FPS: --';
+        this.fpsText.text = 'OPA: ' + opa + '; FPS: ' + this.game.loop.actualFps || 'FPS: --';
     }
 
     // change armature number
