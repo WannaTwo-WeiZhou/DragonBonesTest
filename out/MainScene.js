@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
 var MainScene = /** @class */ (function (_super) {
     __extends(MainScene, _super);
     function MainScene() {
-        var _this = _super.call(this, "ReplaceSlotDisplay") || this;
+        var _this = _super.call(this, "DragonBonesTest") || this;
         _this.factory = null;
         _this.arms = [];
         _this.armNum = 0;
@@ -183,11 +183,12 @@ var MainScene = /** @class */ (function (_super) {
     // slot ctrl
     MainScene.prototype.ctrlSlot = function () {
         this.slotChangeIdx++;
-        this.slotChangeIdx %= MainScene.MAXSLOTCHANGEIDX;
+        this.slotChangeIdx %= MainScene.WEAPONLIST.length;
         for (var i = 0; i < this.armNumOfSlot; i++) {
             var element = this.arms[i];
             if (this.slotNumOneChange > 0) {
-                element.armature.getSlot("weapon_hand_r").displayIndex = this.slotChangeIdx;
+                var displayName = MainScene.WEAPONLIST[this.slotChangeIdx];
+                this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_r"));
                 if (this.slotNumOneChange > 1) {
                     element.armature.getSlot("weapon_hand_l").displayIndex = this.slotChangeIdx;
                 }
@@ -196,6 +197,6 @@ var MainScene = /** @class */ (function (_super) {
     };
     MainScene.BACKGROUND_URL = "resource/background.png";
     MainScene.MAXSLOTNUMONECHANGE = 2;
-    MainScene.MAXSLOTCHANGEIDX = 5;
+    MainScene.WEAPONLIST = ["weapon_1004_r", "weapon_1004b_r", "weapon_1004c_r", "weapon_1004d_r", "weapon_1004e_r"];
     return MainScene;
 }(Phaser.Scene));

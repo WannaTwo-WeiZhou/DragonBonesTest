@@ -1,8 +1,8 @@
 class MainScene extends Phaser.Scene {
 
-    private static BACKGROUND_URL: string = "resource/background.png";
-    private static MAXSLOTNUMONECHANGE: number = 2;
-    private static MAXSLOTCHANGEIDX: number = 5;
+    private static readonly BACKGROUND_URL: string = "resource/background.png";
+    private static readonly MAXSLOTNUMONECHANGE: number = 2;
+    private static readonly WEAPONLIST: string[] = ["weapon_1004_r", "weapon_1004b_r", "weapon_1004c_r", "weapon_1004d_r", "weapon_1004e_r"];
 
     private factory: dragonBones.phaser.Factory = null;
 
@@ -19,7 +19,7 @@ class MainScene extends Phaser.Scene {
     private slotChangeIdx: number = 0;
 
     public constructor() {
-        super("ReplaceSlotDisplay");
+        super("DragonBonesTest");
     }
 
     preload(): void {
@@ -48,7 +48,7 @@ class MainScene extends Phaser.Scene {
         this.add.image(0, 0, MainScene.BACKGROUND_URL);
 
         this.factory = this.dragonbone.factory;
-        // weapons 
+        // right hand weapons 
         this.add.armature("weapon", "weapon_1004");
 
         const textStyle = { fontSize: 18, color: "#FFFFFF", align: "center" };
@@ -203,12 +203,15 @@ class MainScene extends Phaser.Scene {
     // slot ctrl
     private ctrlSlot() {
         this.slotChangeIdx++;
-        this.slotChangeIdx %= MainScene.MAXSLOTCHANGEIDX;
+        this.slotChangeIdx %= MainScene.WEAPONLIST.length;
         for (let i = 0; i < this.armNumOfSlot; i++) {
             const element = this.arms[i];
             if (this.slotNumOneChange > 0) {
-                element.armature.getSlot("weapon_hand_r").displayIndex = this.slotChangeIdx;
+                // 右手武器素材在weapon_1004中
+                const displayName = MainScene.WEAPONLIST[this.slotChangeIdx];
+                this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_r"));
                 if (this.slotNumOneChange > 1) {
+                    // 左手武器素材在mecha_1004d中
                     element.armature.getSlot("weapon_hand_l").displayIndex = this.slotChangeIdx;
                 }
             }
