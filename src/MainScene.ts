@@ -31,6 +31,8 @@ class MainScene extends Phaser.Scene {
             "resource/weapon_1004_show/weapon_1004_show_tex.json",
             "resource/weapon_1004_show/weapon_1004_show_ske.json"
         );
+
+        // MultiTextureBatching
     }
 
     create(): void {
@@ -41,30 +43,38 @@ class MainScene extends Phaser.Scene {
         // this.add.armature("weapon", "weapon_1004");
 
         const textStyle = { fontSize: 18, color: "#FFFFFF", align: "center" };
+        // fps
         this.fpsText = this.add.text(10, 0, "FPS: --", textStyle);
+        // armature num
         this.armNumText = this.add.text(40, 40, "ArmNum: 0", textStyle);
+        let addArmNumBtn = this.add.image(160, 40, "sprites", "increase.png");
+        let minArmNumBtn = this.add.image(15, 40, "sprites", "reduce.png");
+        // armature num of animation ctrl
+        // animation ctrl
+        // armature num of slot ctrl
+        // slot ctrl num
+        // slot ctrl
 
         // buttons
-        let addArmNumBtn = this.add.image(160, 40, "sprites", "increase.png");
         addArmNumBtn.setInteractive();
         addArmNumBtn.on("pointerdown", this.addArmNum, this);
-        let minArmNumBtn = this.add.image(15, 40, "sprites", "reduce.png");
         minArmNumBtn.setInteractive();
         minArmNumBtn.on("pointerdown", this.minArmNum, this);
     }
 
+    // debug operation and fps
     private debugOperation(opa: string) {
         // this.fpsText.text = 'OPA: ' + opa + '; FPS: ' + this.physics.world.fps || 'FPS: --';
     }
 
     // change armature number
-    private addArmNum() {
-        this.updateArmNum(1);
+    private addArmNum(val: number = 1) {
+        this.updateArmNum(val);
 
         this.debugOperation("add armature num");
     }
-    private minArmNum() {
-        this.updateArmNum(-1);
+    private minArmNum(val: number = 1) {
+        this.updateArmNum(-val);
 
         this.debugOperation("minus armature num");
     }
@@ -91,4 +101,10 @@ class MainScene extends Phaser.Scene {
         }
 
     }
+
+    // change armature num of animation ctrl
+    // animation ctrl
+    // change armature num of slot ctrl
+    // change slot ctrl num
+    // slot ctrl
 }
