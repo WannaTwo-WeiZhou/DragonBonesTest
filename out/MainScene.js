@@ -24,10 +24,20 @@ var MainScene = /** @class */ (function (_super) {
         return _this;
     }
     MainScene.prototype.preload = function () {
-        // this.game.time.advancedTiming = true;
         this.load.image(MainScene.BACKGROUND_URL, MainScene.BACKGROUND_URL);
         this.load.atlas("sprites", "resource/spritesheet.png", "resource/spritesheet.json");
-        this.load.dragonbone("mecha_1004d", "resource/mecha_1004d_show/mecha_1004d_show_tex.png", "resource/mecha_1004d_show/mecha_1004d_show_tex.json", "resource/mecha_1004d_show/mecha_1004d_show_ske.json");
+        // demo1
+        // this.load.dragonbone(
+        //     "mecha_1004d",
+        //     "resource/mecha_1004d_show/mecha_1004d_show_tex.png",
+        //     "resource/mecha_1004d_show/mecha_1004d_show_tex.json",
+        //     "resource/mecha_1004d_show/mecha_1004d_show_ske.json"
+        // );
+        // demo1
+        // demo2
+        this.load.dragonbone("mecha_2903", "resource/mecha_2903/mecha_2903_tex.png", "resource/mecha_2903/mecha_2903_tex.json", "resource/mecha_2903/mecha_2903_ske.json");
+        // demo2
+        // replace target
         this.load.dragonbone("weapon_1004", "resource/weapon_1004_show/weapon_1004_show_tex.png", "resource/weapon_1004_show/weapon_1004_show_tex.json", "resource/weapon_1004_show/weapon_1004_show_ske.json");
         // MultiTextureBatching
     };
@@ -42,7 +52,7 @@ var MainScene = /** @class */ (function (_super) {
         this.fpsText.depth = 999;
         // armature num
         this.armNumText = this.add.text(40, 40, "ArmNum: 0", textStyle);
-        var addArmNumBtn = this.add.image(160, 40, "sprites", "increase.png");
+        var addArmNumBtn = this.add.image(200, 40, "sprites", "increase.png");
         var minArmNumBtn = this.add.image(15, 40, "sprites", "reduce.png");
         // armature num of animation ctrl
         // this.armNumOfAniText = this.add.text(40, 80, "ArmNumOfAni: 0", textStyle);
@@ -105,7 +115,12 @@ var MainScene = /** @class */ (function (_super) {
         var maxY = this.scale.gameSize.height;
         // add
         while (this.armNum > this.arms.length) {
-            var arm = this.add.armature("mecha_1004d", "mecha_1004d");
+            // demo1
+            // let arm = this.add.armature("mecha_1004d", "mecha_1004d");
+            // demo1
+            // demo2
+            var arm = this.add.armature("mecha_2903d", "mecha_2903");
+            // demo2
             arm.x = 300 + Math.random() * (maxX - 300);
             arm.y = 100 + Math.random() * (maxY - 100);
             arm.scale = 0.25;
@@ -175,31 +190,45 @@ var MainScene = /** @class */ (function (_super) {
     };
     MainScene.prototype.updateSlotOneChange = function (val) {
         this.slotNumOneChange += val;
-        this.slotNumOneChange = this.slotNumOneChange > MainScene.MAXSLOTNUMONECHANGE ? MainScene.MAXSLOTNUMONECHANGE : this.slotNumOneChange;
+        this.slotNumOneChange = this.slotNumOneChange > MainScene.SLOTSTOBECHANGED.length ? MainScene.SLOTSTOBECHANGED.length : this.slotNumOneChange;
         this.slotNumOneChange = this.slotNumOneChange < 0 ? 0 : this.slotNumOneChange;
         this.slotNumOneChangeText.text = "SlotNumOneChange: " + this.slotNumOneChange;
     };
     // slot ctrl
     MainScene.prototype.ctrlSlot = function () {
-        this.slotChangeIdx++;
-        this.slotChangeIdx %= MainScene.WEAPONLIST.length;
+        // demo1
+        // this.slotChangeIdx++;
+        // this.slotChangeIdx %= MainScene.WEAPONLIST.length;
+        // for (let i = 0; i < this.arms.length; i++) {
+        //     const element = this.arms[i];
+        //     if (this.slotNumOneChange > 0) {
+        //         // 右手武器素材在weapon_1004中
+        //         const displayName = MainScene.WEAPONLIST[this.slotChangeIdx];
+        //         this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_r"));
+        //         if (this.slotNumOneChange > 1) {
+        //             // 左手武器素材在mecha_1004d中
+        //             // element.armature.getSlot("weapon_hand_l").displayIndex = this.slotChangeIdx;
+        //             this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_l"));
+        //         }
+        //     }
+        // }
+        // demo1
+        // demo2
         for (var i = 0; i < this.arms.length; i++) {
             var element = this.arms[i];
-            if (this.slotNumOneChange > 0) {
-                // 右手武器素材在weapon_1004中
-                var displayName = MainScene.WEAPONLIST[this.slotChangeIdx];
-                this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_r"));
-                if (this.slotNumOneChange > 1) {
-                    // 左手武器素材在mecha_1004d中
-                    // element.armature.getSlot("weapon_hand_l").displayIndex = this.slotChangeIdx;
-                    this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_l"));
-                }
+            for (var j = 0; j < this.slotNumOneChange; j++) {
+                var displayName = MainScene.WEAPONLIST[j % MainScene.WEAPONLIST.length];
+                this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot(MainScene.SLOTSTOBECHANGED[j]));
+                console.log("replaceSlot");
             }
+            console.log("next arm");
         }
+        // demo2
         this.debugOperation("change slot");
     };
     MainScene.BACKGROUND_URL = "resource/background.png";
     MainScene.MAXSLOTNUMONECHANGE = 2;
     MainScene.WEAPONLIST = ["weapon_1004_r", "weapon_1004b_r", "weapon_1004c_r", "weapon_1004d_r", "weapon_1004e_r"];
+    MainScene.SLOTSTOBECHANGED = ["forearm_l", "forearm_r", "tail1", "tail2", "tail3", "tail4", "tail5", "tail6", "tail7", "tail8", "tail9"];
     return MainScene;
 }(Phaser.Scene));

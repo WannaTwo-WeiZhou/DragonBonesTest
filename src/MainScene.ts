@@ -1,8 +1,8 @@
 class MainScene extends Phaser.Scene {
 
     private static readonly BACKGROUND_URL: string = "resource/background.png";
-    private static readonly MAXSLOTNUMONECHANGE: number = 2;
     private static readonly WEAPONLIST: string[] = ["weapon_1004_r", "weapon_1004b_r", "weapon_1004c_r", "weapon_1004d_r", "weapon_1004e_r"];
+    private static readonly SLOTSTOBECHANGED: string[] = ["forearm_l", "forearm_r", "tail1", "tail2", "tail3", "tail4", "tail5", "tail6", "tail7", "tail8", "tail9"];
 
     private factory: dragonBones.phaser.Factory = null;
 
@@ -26,12 +26,15 @@ class MainScene extends Phaser.Scene {
         this.load.image(MainScene.BACKGROUND_URL, MainScene.BACKGROUND_URL);
         this.load.atlas("sprites", "resource/spritesheet.png", "resource/spritesheet.json");
 
+        // slot target
         this.load.dragonbone(
-            "mecha_1004d",
-            "resource/mecha_1004d_show/mecha_1004d_show_tex.png",
-            "resource/mecha_1004d_show/mecha_1004d_show_tex.json",
-            "resource/mecha_1004d_show/mecha_1004d_show_ske.json"
+            "mecha_2903",
+            "resource/mecha_2903/mecha_2903_tex.png",
+            "resource/mecha_2903/mecha_2903_tex.json",
+            "resource/mecha_2903/mecha_2903_ske.json"
         );
+
+        // replace target
         this.load.dragonbone(
             "weapon_1004",
             "resource/weapon_1004_show/weapon_1004_show_tex.png",
@@ -46,6 +49,7 @@ class MainScene extends Phaser.Scene {
         this.add.image(0, 0, MainScene.BACKGROUND_URL);
 
         this.factory = this.dragonbone.factory;
+
         // right hand weapons 
         this.add.armature("weapon", "weapon_1004");
 
@@ -122,7 +126,7 @@ class MainScene extends Phaser.Scene {
         const maxY = this.scale.gameSize.height;
         // add
         while (this.armNum > this.arms.length) {
-            let arm = this.add.armature("mecha_1004d", "mecha_1004d");
+            let arm = this.add.armature("mecha_2903d", "mecha_2903");
             arm.x = 300 + Math.random() * (maxX - 300);
             arm.y = 100 + Math.random() * (maxY - 100);
             arm.scale = 0.25;
@@ -196,27 +200,22 @@ class MainScene extends Phaser.Scene {
     }
     private updateSlotOneChange(val: number) {
         this.slotNumOneChange += val;
-        this.slotNumOneChange = this.slotNumOneChange > MainScene.MAXSLOTNUMONECHANGE ? MainScene.MAXSLOTNUMONECHANGE : this.slotNumOneChange;
+        this.slotNumOneChange = this.slotNumOneChange > MainScene.SLOTSTOBECHANGED.length ? MainScene.SLOTSTOBECHANGED.length : this.slotNumOneChange;
         this.slotNumOneChange = this.slotNumOneChange < 0 ? 0 : this.slotNumOneChange;
         this.slotNumOneChangeText.text = "SlotNumOneChange: " + this.slotNumOneChange;
     }
     // slot ctrl
     private ctrlSlot() {
-        this.slotChangeIdx++;
-        this.slotChangeIdx %= MainScene.WEAPONLIST.length;
         for (let i = 0; i < this.arms.length; i++) {
-            const element = this.arms[i];
-            if (this.slotNumOneChange > 0) {
-                // 右手武器素材在weapon_1004中
-                const displayName = MainScene.WEAPONLIST[this.slotChangeIdx];
-                this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_r"));
-                if (this.slotNumOneChange > 1) {
-                    // 左手武器素材在mecha_1004d中
-                    // element.armature.getSlot("weapon_hand_l").displayIndex = this.slotChangeIdx;
-                    this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot("weapon_hand_l"));
-                }
+            let element = this.arms[i];
+            for (let j = 0; j < this.slotNumOneChange; j++) {
+                let displayName = MainScene.WEAPONLIST[j % MainScene.WEAPONLIST.length];
+                this.factory.replaceSlotDisplay("weapon_1004", "weapon", "weapon_r", displayName, element.armature.getSlot(MainScene.SLOTSTOBECHANGED[j]));
+                console.log("replaceSlot");
             }
+            console.log("next arm");
         }
+
         this.debugOperation("change slot");
     }
 }
