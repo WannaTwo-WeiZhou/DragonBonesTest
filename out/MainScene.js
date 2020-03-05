@@ -30,14 +30,20 @@ var MainScene = /** @class */ (function (_super) {
         // armature resource
         this.load.dragonbone("human01", "resource/human01/bones_human01_tex.png", "resource/human01/bones_human01_tex.json", "resource/human01/bones_human01_ske.dbbin", null, null, { responseType: "arraybuffer" });
         // replace target
-        this.load.dragonbone("weapon_1004", "resource/weapon_1004_show/weapon_1004_show_tex.png", "resource/weapon_1004_show/weapon_1004_show_tex.json", "resource/weapon_1004_show/weapon_1004_show_ske.json");
-        this.load.image(MainScene.CHANGEDTEXTURE, "resource/human01/bones_human01_tex_change.png");
+        // this.load.dragonbone(
+        //     "weapon_1004",
+        //     "resource/weapon_1004_show/weapon_1004_show_tex.png",
+        //     "resource/weapon_1004_show/weapon_1004_show_tex.json",
+        //     "resource/weapon_1004_show/weapon_1004_show_ske.json"
+        // );
+        this.load.dragonbone("human02", "resource/human02/bones_human01_tex.png", "resource/human02/bones_human01_tex.json", "resource/human02/bones_human01_ske.dbbin", null, null, { responseType: "arraybuffer" });
         // MultiTextureBatching
     };
     MainScene.prototype.create = function () {
         this.factory = this.dragonbone.factory;
         // right hand weapons 
-        this.add.armature("weapon", "weapon_1004");
+        // this.add.armature("weapon", "weapon_1004");
+        this.add.armature("Armature", "human02");
         var textStyle = { fontSize: 18, color: "#FFFFFF", align: "center" };
         // fps
         this.fpsText = this.add.text(10, 0, "FPS: --", textStyle);
@@ -47,15 +53,15 @@ var MainScene = /** @class */ (function (_super) {
         var addArmNumBtn = this.add.image(200, 40, "sprites", "increase.png");
         var minArmNumBtn = this.add.image(15, 40, "sprites", "reduce.png");
         // slot ctrl num
-        this.slotNumOneChangeText = this.add.text(40, 80, "SlotNumOneChange: 0", textStyle);
-        var addSlotOneChangeBtn = this.add.image(260, 80, "sprites", "increase.png");
-        var minSlotOneChangeBtn = this.add.image(15, 80, "sprites", "reduce.png");
+        // this.slotNumOneChangeText = this.add.text(40, 80, "SlotNumOneChange: 0", textStyle);
+        // let addSlotOneChangeBtn = this.add.image(260, 80, "sprites", "increase.png");
+        // let minSlotOneChangeBtn = this.add.image(15, 80, "sprites", "reduce.png");
         // slot ctrl
-        var slotCtrlText = this.add.text(15, 120, "SlotCtrl", textStyle);
-        var slotCtrlBtn = this.add.image(120, 120, "sprites", "increase.png");
+        // let slotCtrlText = this.add.text(15, 120, "SlotCtrl", textStyle);
+        // let slotCtrlBtn = this.add.image(120, 120, "sprites", "increase.png");
         // texture ctrl
-        // let textureCtrlText = this.add.text(15, 160, "TextureCtrl", textStyle);
-        // let textureCtrlBtn = this.add.image(150, 160, "sprites", "increase.png");
+        var textureCtrlText = this.add.text(15, 160, "TextureCtrl", textStyle);
+        var textureCtrlBtn = this.add.image(150, 160, "sprites", "increase.png");
         // animation ctrl
         var aniCtrlText = this.add.text(15, 200, "AniCtrl", textStyle);
         var aniCtrlBtn = this.add.image(120, 200, "sprites", "increase.png");
@@ -67,14 +73,14 @@ var MainScene = /** @class */ (function (_super) {
         addArmNumBtn.on("pointerdown", this.addArmNum, this);
         minArmNumBtn.setInteractive();
         minArmNumBtn.on("pointerdown", this.minArmNum, this);
-        addSlotOneChangeBtn.setInteractive();
-        addSlotOneChangeBtn.on("pointerdown", this.addSlotOneChange, this);
-        minSlotOneChangeBtn.setInteractive();
-        minSlotOneChangeBtn.on("pointerdown", this.minSlotOneChange, this);
-        slotCtrlBtn.setInteractive();
-        slotCtrlBtn.on("pointerdown", this.ctrlSlot, this);
-        // textureCtrlBtn.setInteractive();
-        // textureCtrlBtn.on("pointerdown", this.ctrlTexture, this);
+        // addSlotOneChangeBtn.setInteractive();
+        // addSlotOneChangeBtn.on("pointerdown", this.addSlotOneChange, this);
+        // minSlotOneChangeBtn.setInteractive();
+        // minSlotOneChangeBtn.on("pointerdown", this.minSlotOneChange, this);
+        // slotCtrlBtn.setInteractive();
+        // slotCtrlBtn.on("pointerdown", this.ctrlSlot, this);
+        textureCtrlBtn.setInteractive();
+        textureCtrlBtn.on("pointerdown", this.ctrlTexture, this);
         aniCtrlBtn.setInteractive();
         aniCtrlBtn.on("pointerdown", this.ctrlAni, this);
         moveCtrlBtn.setInteractive();
@@ -165,10 +171,14 @@ var MainScene = /** @class */ (function (_super) {
     };
     // texture ctrl
     MainScene.prototype.ctrlTexture = function () {
-        // for (let i = 0; i < this.arms.length; i++) {
-        //     const element = this.arms[i];
-        //     element.armature.replacedTexture = this.textures.get(MainScene.CHANGEDTEXTURE);
-        // }
+        for (var i = 0; i < this.arms.length; i++) {
+            var element = this.arms[i];
+            var slots = element.armature.getSlots();
+            for (var j = 0; j < slots.length; j++) {
+                var slot = slots[j];
+                this.factory.replaceSlotDisplay("human02", "Armature", slot.name, slot.name, slot); // 项目中displayName == slotName
+            }
+        }
         this.debugOperation("change texture");
     };
     // animation ctrl
@@ -190,6 +200,5 @@ var MainScene = /** @class */ (function (_super) {
     };
     MainScene.WEAPONLIST = ["weapon_1004_r", "weapon_1004b_r", "weapon_1004c_r", "weapon_1004d_r", "weapon_1004e_r"];
     MainScene.SLOTSTOBECHANGED = ["weap_barm_3", "weap_farm_3", "weap_farm_1", "weap_barm_1", "head_spec_3", "head_spec_1"];
-    MainScene.CHANGEDTEXTURE = "changedTexture";
     return MainScene;
 }(Phaser.Scene));

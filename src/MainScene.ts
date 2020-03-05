@@ -2,7 +2,6 @@ class MainScene extends Phaser.Scene {
 
     private static readonly WEAPONLIST: string[] = ["weapon_1004_r", "weapon_1004b_r", "weapon_1004c_r", "weapon_1004d_r", "weapon_1004e_r"];
     private static readonly SLOTSTOBECHANGED: string[] = ["weap_barm_3", "weap_farm_3", "weap_farm_1", "weap_barm_1", "head_spec_3", "head_spec_1"];
-    private static readonly CHANGEDTEXTURE: string = "changedTexture";
 
     private factory: dragonBones.phaser.Factory = null;
 
@@ -35,13 +34,21 @@ class MainScene extends Phaser.Scene {
         );
 
         // replace target
+        // this.load.dragonbone(
+        //     "weapon_1004",
+        //     "resource/weapon_1004_show/weapon_1004_show_tex.png",
+        //     "resource/weapon_1004_show/weapon_1004_show_tex.json",
+        //     "resource/weapon_1004_show/weapon_1004_show_ske.json"
+        // );
         this.load.dragonbone(
-            "weapon_1004",
-            "resource/weapon_1004_show/weapon_1004_show_tex.png",
-            "resource/weapon_1004_show/weapon_1004_show_tex.json",
-            "resource/weapon_1004_show/weapon_1004_show_ske.json"
+            "human02",
+            "resource/human02/bones_human01_tex.png",
+            "resource/human02/bones_human01_tex.json",
+            "resource/human02/bones_human01_ske.dbbin",
+            null,
+            null,
+            { responseType: "arraybuffer" },
         );
-        this.load.image(MainScene.CHANGEDTEXTURE, "resource/human01/bones_human01_tex_change.png");
 
         // MultiTextureBatching
     }
@@ -50,7 +57,8 @@ class MainScene extends Phaser.Scene {
         this.factory = this.dragonbone.factory;
 
         // right hand weapons 
-        this.add.armature("weapon", "weapon_1004");
+        // this.add.armature("weapon", "weapon_1004");
+        this.add.armature("Armature", "human02");
 
         const textStyle = { fontSize: 18, color: "#FFFFFF", align: "center" };
         // fps
@@ -61,15 +69,15 @@ class MainScene extends Phaser.Scene {
         let addArmNumBtn = this.add.image(200, 40, "sprites", "increase.png");
         let minArmNumBtn = this.add.image(15, 40, "sprites", "reduce.png");
         // slot ctrl num
-        this.slotNumOneChangeText = this.add.text(40, 80, "SlotNumOneChange: 0", textStyle);
-        let addSlotOneChangeBtn = this.add.image(260, 80, "sprites", "increase.png");
-        let minSlotOneChangeBtn = this.add.image(15, 80, "sprites", "reduce.png");
+        // this.slotNumOneChangeText = this.add.text(40, 80, "SlotNumOneChange: 0", textStyle);
+        // let addSlotOneChangeBtn = this.add.image(260, 80, "sprites", "increase.png");
+        // let minSlotOneChangeBtn = this.add.image(15, 80, "sprites", "reduce.png");
         // slot ctrl
-        let slotCtrlText = this.add.text(15, 120, "SlotCtrl", textStyle);
-        let slotCtrlBtn = this.add.image(120, 120, "sprites", "increase.png");
+        // let slotCtrlText = this.add.text(15, 120, "SlotCtrl", textStyle);
+        // let slotCtrlBtn = this.add.image(120, 120, "sprites", "increase.png");
         // texture ctrl
-        // let textureCtrlText = this.add.text(15, 160, "TextureCtrl", textStyle);
-        // let textureCtrlBtn = this.add.image(150, 160, "sprites", "increase.png");
+        let textureCtrlText = this.add.text(15, 160, "TextureCtrl", textStyle);
+        let textureCtrlBtn = this.add.image(150, 160, "sprites", "increase.png");
         // animation ctrl
         let aniCtrlText = this.add.text(15, 200, "AniCtrl", textStyle);
         let aniCtrlBtn = this.add.image(120, 200, "sprites", "increase.png");
@@ -82,14 +90,14 @@ class MainScene extends Phaser.Scene {
         addArmNumBtn.on("pointerdown", this.addArmNum, this);
         minArmNumBtn.setInteractive();
         minArmNumBtn.on("pointerdown", this.minArmNum, this);
-        addSlotOneChangeBtn.setInteractive();
-        addSlotOneChangeBtn.on("pointerdown", this.addSlotOneChange, this);
-        minSlotOneChangeBtn.setInteractive();
-        minSlotOneChangeBtn.on("pointerdown", this.minSlotOneChange, this);
-        slotCtrlBtn.setInteractive();
-        slotCtrlBtn.on("pointerdown", this.ctrlSlot, this);
-        // textureCtrlBtn.setInteractive();
-        // textureCtrlBtn.on("pointerdown", this.ctrlTexture, this);
+        // addSlotOneChangeBtn.setInteractive();
+        // addSlotOneChangeBtn.on("pointerdown", this.addSlotOneChange, this);
+        // minSlotOneChangeBtn.setInteractive();
+        // minSlotOneChangeBtn.on("pointerdown", this.minSlotOneChange, this);
+        // slotCtrlBtn.setInteractive();
+        // slotCtrlBtn.on("pointerdown", this.ctrlSlot, this);
+        textureCtrlBtn.setInteractive();
+        textureCtrlBtn.on("pointerdown", this.ctrlTexture, this);
         aniCtrlBtn.setInteractive();
         aniCtrlBtn.on("pointerdown", this.ctrlAni, this);
         moveCtrlBtn.setInteractive();
@@ -188,10 +196,14 @@ class MainScene extends Phaser.Scene {
 
     // texture ctrl
     private ctrlTexture() {
-        // for (let i = 0; i < this.arms.length; i++) {
-        //     const element = this.arms[i];
-        //     element.armature.replacedTexture = this.textures.get(MainScene.CHANGEDTEXTURE);
-        // }
+        for (let i = 0; i < this.arms.length; i++) {
+            let element = this.arms[i];
+            let slots = element.armature.getSlots();
+            for (let j = 0; j < slots.length; j++) {
+                const slot = slots[j];
+                this.factory.replaceSlotDisplay("human02", "Armature", slot.name, slot.name, slot);// 项目中displayName == slotName
+            }
+        }
 
         this.debugOperation("change texture");
     }
