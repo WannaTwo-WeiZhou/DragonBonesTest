@@ -173,11 +173,13 @@ var MainScene = /** @class */ (function (_super) {
     MainScene.prototype.ctrlTexture = function () {
         for (var i = 0; i < this.arms.length; i++) {
             var element = this.arms[i];
-            var slots = element.armature.getSlots();
-            for (var j = 0; j < slots.length; j++) {
-                var slot = slots[j];
-                this.factory.replaceSlotDisplay("human02", "Armature", slot.name, slot.name, slot); // 项目中displayName == slotName
-            }
+            // let slots = element.armature.getSlots();
+            // for (let j = 0; j < slots.length; j++) {
+            //     const slot = slots[j];
+            //     this.factory.replaceSlotDisplay("human02", "Armature", slot.name, slot.name, slot);// 项目中displayName == slotName
+            // }
+            var tarSkin = this.factory.getArmatureData("Armature", "human02").defaultSkin;
+            this.factory.replaceSkin(element.armature, tarSkin);
         }
         this.debugOperation("change texture");
     };
