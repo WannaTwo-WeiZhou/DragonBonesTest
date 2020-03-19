@@ -40,7 +40,7 @@ var MainScene = /** @class */ (function (_super) {
         // MultiTextureBatching
     };
     MainScene.prototype.create = function () {
-        this.factory = this.dragonbone.factory;
+        this.factory = this.add.dragonBoneFactory();
         // right hand weapons 
         // this.add.armature("weapon", "weapon_1004");
         this.add.armature("Armature", "human02");

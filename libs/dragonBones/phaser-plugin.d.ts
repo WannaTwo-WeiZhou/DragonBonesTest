@@ -18,6 +18,7 @@ declare namespace Phaser {
       armature: (armature: string, dragonBones?: string, skinName?: string, atlasTextureName?: string)
         => dragonBones.phaser.display.ArmatureDisplay;
       dragonBones: (dragonBonesName: string, textureScale?: number) => dragonBones.DragonBonesData;
+      dragonBoneFactory: () => dragonBones.phaser.Factory;
     }
   }
 }

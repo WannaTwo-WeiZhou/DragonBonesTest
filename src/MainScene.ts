@@ -54,7 +54,7 @@ class MainScene extends Phaser.Scene {
     }
 
     create(): void {
-        this.factory = this.dragonbone.factory;
+        this.factory = this.add.dragonBoneFactory();//this.dragonbone.factory;
 
         // right hand weapons 
         // this.add.armature("weapon", "weapon_1004");
