@@ -40,15 +40,16 @@ class MainScene extends Phaser.Scene {
         //     "resource/weapon_1004_show/weapon_1004_show_tex.json",
         //     "resource/weapon_1004_show/weapon_1004_show_ske.json"
         // );
-        this.load.dragonbone(
-            "human02",
-            "resource/human02/bones_human01_tex.png",
-            "resource/human02/bones_human01_tex.json",
-            "resource/human02/bones_human01_ske.dbbin",
-            null,
-            null,
-            { responseType: "arraybuffer" },
-        );
+        // this.load.dragonbone(
+        //     "human02",
+        //     "resource/human02/bones_human01_tex.png",
+        //     "resource/human02/bones_human01_tex.json",
+        //     "resource/human02/bones_human01_ske.dbbin",
+        //     null,
+        //     null,
+        //     { responseType: "arraybuffer" },
+        // );
+        this.load.image("human02", "resource/human02/bones_human01_tex.png");
 
         // MultiTextureBatching
     }
@@ -58,7 +59,7 @@ class MainScene extends Phaser.Scene {
 
         // right hand weapons 
         // this.add.armature("weapon", "weapon_1004");
-        this.add.armature("Armature", "human02");
+        // this.add.armature("Armature", "human02");
 
         const textStyle = { fontSize: 18, color: "#FFFFFF", align: "center" };
         // fps
@@ -137,11 +138,11 @@ class MainScene extends Phaser.Scene {
 
     // change armature number
     private addArmNum() {
-        this.updateArmNum(10);
+        this.updateArmNum(2);
         this.debugOperation("add armature num");
     }
     private minArmNum() {
-        this.updateArmNum(-10);
+        this.updateArmNum(-2);
         this.debugOperation("minus armature num");
     }
     private updateArmNum(val: number) {
@@ -162,7 +163,7 @@ class MainScene extends Phaser.Scene {
         // minus
         while (this.armNum < this.arms.length) {
             let arm = this.arms.pop;
-            arm.dispose();
+            arm.destroy();
         }
     }
 
@@ -196,16 +197,26 @@ class MainScene extends Phaser.Scene {
 
     // texture ctrl
     private ctrlTexture() {
+        console.log("all texture keys: ");
+        this.textures.getTextureKeys().forEach(element => {
+            console.log("one key: " + element);
+        });
+
         for (let i = 0; i < this.arms.length; i++) {
             let element = this.arms[i];
+            // 换全slot
             // let slots = element.armature.getSlots();
             // for (let j = 0; j < slots.length; j++) {
             //     const slot = slots[j];
             //     this.factory.replaceSlotDisplay("human02", "Armature", slot.name, slot.name, slot);// 项目中displayName == slotName
             // }
 
-            let tarSkin = this.factory.getArmatureData("Armature", "human02").defaultSkin;
-            this.factory.replaceSkin(element.armature, tarSkin);
+            // factory方法
+            // let tarSkin = this.factory.getArmatureData("Armature", "human02").defaultSkin;
+            // this.factory.replaceSkin(element.armature, tarSkin);
+
+            // armature方法
+            element.armature.replacedTexture = this.textures.get("human02");
         }
 
         this.debugOperation("change texture");

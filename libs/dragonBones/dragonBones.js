@@ -4236,7 +4236,9 @@ var dragonBones;
                 return this._replacedTexture;
             },
             set: function (value) {
+                console.log("ZW-- replacedTexture ：" + (value ? value.key : "null"));
                 if (this._replacedTexture === value) {
+                    console.log("ZW-- WARNING this._replacedTexture === value");
                     return;
                 }
                 if (this._replaceTextureAtlasData !== null) {
@@ -4244,6 +4246,8 @@ var dragonBones;
                     this._replaceTextureAtlasData = null;
                 }
                 this._replacedTexture = value;
+                // console.log("ZW-- armature add img : " + this._replacedTexture.key);
+                // this.display.scene.add.image(400, 500, this._replacedTexture.key);
                 for (var _i = 0, _a = this._slots; _i < _a.length; _i++) {
                     var slot = _a[_i];
                     slot.invalidUpdate();
@@ -6070,6 +6074,7 @@ var dragonBones;
             this._displayDirty = true;
             //
             this._transformDirty = true;
+            // this._textureDirty = true;
         };
         /**
          * @private
@@ -11128,10 +11133,11 @@ var dragonBones;
                 this._valueCount = frameIntArray[frameIntOffset + 2 /* DeformValueCount */];
                 this._deformCount = frameIntArray[frameIntOffset + 1 /* DeformCount */];
                 this._deformOffset = frameIntArray[frameIntOffset + 3 /* DeformValueOffset */];
-                this._sameValueOffset = frameIntArray[frameIntOffset + 4 /* DeformFloatOffset */] + this._animationData.frameFloatOffset;
+                this._sameValueOffset = frameIntArray[frameIntOffset + 4 /* DeformFloatOffset */];
                 if (this._sameValueOffset < 0) {
                     this._sameValueOffset += 65536; // Fixed out of bounds bug. 
                 }
+                this._sameValueOffset += this._animationData.frameFloatOffset;
                 this._valueScale = this._armature.armatureData.scale;
                 this._valueArray = dragonBonesData.frameFloatArray;
                 this._rd.length = this._valueCount * 2;
@@ -14087,6 +14093,9 @@ var dragonBones;
             geometry.offset = rawData[dragonBones.DataParser.OFFSET];
             geometry.data = this._data;
             var weightOffset = this._intArrayBuffer[geometry.offset + 3 /* GeometryWeightOffset */];
+            if (weightOffset < -1) { // -1 is a special flag that there is no bones weight.
+                weightOffset += 65536; // Fixed out of bounds bug. 
+            }
             if (weightOffset >= 0) {
                 var weight = dragonBones.BaseObject.borrowObject(dragonBones.WeightData);
                 var vertexCount = this._intArrayBuffer[geometry.offset + 0 /* GeometryVertexCount */];
@@ -15619,6 +15628,12 @@ var dragonBones;
                     // can't use this._armature.display.remove here, perphaps this._renderDisplay is a child of armature.
                     this._renderDisplay.parentContainer.remove(this._renderDisplay);
                 };
+                Slot.prototype._updateDisplayData = function () {
+                    _super.prototype._updateDisplayData.call(this);
+                    if (this.armature.replacedTexture !== null) {
+                        this._textureDirty = true;
+                    }
+                };
                 Slot.prototype._updateZOrder = function () {
                     if (this._renderDisplay.depth === this._zOrder)
                         return;
@@ -15684,8 +15699,12 @@ var dragonBones;
                             if (this.armature._replaceTextureAtlasData === null) {
                                 currentTextureAtlasData = dragonBones.BaseObject.borrowObject(display.TextureAtlasData);
                                 currentTextureAtlasData.copyFrom(currentTextureData.parent);
+                                // console.log("ZW-- slot add img 1 : " + this.armature.replacedTexture.key);
+                                // this.armature.display.scene.add.image(800, 500, this.armature.replacedTexture.key);
                                 currentTextureAtlasData.renderTexture = this.armature.replacedTexture;
                                 this.armature._replaceTextureAtlasData = currentTextureAtlasData;
+                                console.log("ZW-- slot add img 2 : " + currentTextureAtlasData.renderTexture.key);
+                                this.armature.display.scene.add.image(1200, 500, currentTextureAtlasData.renderTexture.key);
                             }
                             else
                                 currentTextureAtlasData = this.armature._replaceTextureAtlasData;
@@ -15739,6 +15758,10 @@ var dragonBones;
                                 }
                             }
                             else { // normal texture.
+                                console.log("ZW-- slot _updateFrame isImg: " + (this._renderDisplay instanceof Phaser.GameObjects.Image) + "; textureKey: " + frame.texture.key + "; frameName: " + frame.name);
+                                if (frame.texture.key !== "bones_human01") {
+                                    this.armature.display.scene.add.image(1200 + frame.cutX, 400 + frame.cutY, frame.texture.key, frame.name);
+                                }
                                 this._renderDisplay.texture = frame.texture;
                                 this._renderDisplay.frame = frame;
                                 this._renderDisplay.setDisplayOrigin(this._pivotX, this._pivotY);
@@ -15885,8 +15908,11 @@ var dragonBones;
                         this._renderTexture = value;
                         for (var k in this.textures) {
                             var data = this.textures[k];
-                            var frame = this._renderTexture.add(k, 0, // all textures were added through `textures.addImage`, so their sourceIndex are all 0
+                            var frame = this._renderTexture.has(k) ? this._renderTexture.get(k) : this._renderTexture.add(
+                            // const frame = this._renderTexture.add(
+                            k, 0, // all textures were added through `textures.addImage`, so their sourceIndex are all 0
                             data.region.x, data.region.y, data.region.width, data.region.height);
+                            // console.log("ZW-- set renderTexture; addFrame: " + k);
                             if (data.rotated) {
                                 frame.rotated = true;
                                 frame.updateUVsInverted();

@@ -36,14 +36,23 @@ var MainScene = /** @class */ (function (_super) {
         //     "resource/weapon_1004_show/weapon_1004_show_tex.json",
         //     "resource/weapon_1004_show/weapon_1004_show_ske.json"
         // );
-        this.load.dragonbone("human02", "resource/human02/bones_human01_tex.png", "resource/human02/bones_human01_tex.json", "resource/human02/bones_human01_ske.dbbin", null, null, { responseType: "arraybuffer" });
+        // this.load.dragonbone(
+        //     "human02",
+        //     "resource/human02/bones_human01_tex.png",
+        //     "resource/human02/bones_human01_tex.json",
+        //     "resource/human02/bones_human01_ske.dbbin",
+        //     null,
+        //     null,
+        //     { responseType: "arraybuffer" },
+        // );
+        this.load.image("human02", "resource/human02/bones_human01_tex.png");
         // MultiTextureBatching
     };
     MainScene.prototype.create = function () {
-        this.factory = this.add.dragonBoneFactory();
+        this.factory = this.add.dragonBoneFactory(); //this.dragonbone.factory;
         // right hand weapons 
         // this.add.armature("weapon", "weapon_1004");
-        this.add.armature("Armature", "human02");
+        // this.add.armature("Armature", "human02");
         var textStyle = { fontSize: 18, color: "#FFFFFF", align: "center" };
         // fps
         this.fpsText = this.add.text(10, 0, "FPS: --", textStyle);
@@ -116,11 +125,11 @@ var MainScene = /** @class */ (function (_super) {
     };
     // change armature number
     MainScene.prototype.addArmNum = function () {
-        this.updateArmNum(10);
+        this.updateArmNum(2);
         this.debugOperation("add armature num");
     };
     MainScene.prototype.minArmNum = function () {
-        this.updateArmNum(-10);
+        this.updateArmNum(-2);
         this.debugOperation("minus armature num");
     };
     MainScene.prototype.updateArmNum = function (val) {
@@ -140,7 +149,7 @@ var MainScene = /** @class */ (function (_super) {
         // minus
         while (this.armNum < this.arms.length) {
             var arm = this.arms.pop;
-            arm.dispose();
+            arm.destroy();
         }
     };
     // change slot ctrl num
@@ -171,15 +180,23 @@ var MainScene = /** @class */ (function (_super) {
     };
     // texture ctrl
     MainScene.prototype.ctrlTexture = function () {
+        console.log("all texture keys: ");
+        this.textures.getTextureKeys().forEach(function (element) {
+            console.log("one key: " + element);
+        });
         for (var i = 0; i < this.arms.length; i++) {
             var element = this.arms[i];
+            // 换全slot
             // let slots = element.armature.getSlots();
             // for (let j = 0; j < slots.length; j++) {
             //     const slot = slots[j];
             //     this.factory.replaceSlotDisplay("human02", "Armature", slot.name, slot.name, slot);// 项目中displayName == slotName
             // }
-            var tarSkin = this.factory.getArmatureData("Armature", "human02").defaultSkin;
-            this.factory.replaceSkin(element.armature, tarSkin);
+            // factory方法
+            // let tarSkin = this.factory.getArmatureData("Armature", "human02").defaultSkin;
+            // this.factory.replaceSkin(element.armature, tarSkin);
+            // armature方法
+            element.armature.replacedTexture = this.textures.get("human02");
         }
         this.debugOperation("change texture");
     };

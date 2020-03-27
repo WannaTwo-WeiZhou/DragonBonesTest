@@ -1,1 +1,386 @@
-{"imagePath":"bones_human01_tex.png","width":512,"height":256,"name":"bones_human01","SubTexture":[{"width":31,"y":179,"height":36,"name":"test resources/shld_farm_0001_1","x":439},{"width":21,"y":201,"height":26,"name":"test resources/barm_base_0001_1","x":185},{"width":21,"y":201,"height":26,"name":"test resources/barm_cost_0005_1","x":208},{"width":21,"y":201,"height":26,"name":"test resources/barm_spec_0001_1","x":254},{"width":33,"y":179,"height":42,"name":"test resources/weap_farm_0001_1","x":404},{"width":17,"y":217,"height":20,"name":"test resources/bleg_base_0001_1","x":309},{"width":17,"y":217,"height":20,"name":"test resources/bleg_cost_0005_1","x":439},{"width":17,"y":219,"height":20,"name":"test resources/bleg_spec_0001_1","x":277},{"width":71,"y":82,"height":79,"name":"test resources/head_mask_0002_1","x":293},{"width":71,"y":82,"height":79,"name":"test resources/head_base_0001_1","x":147},{"width":71,"y":1,"height":79,"name":"test resources/head_spec_0001_1","x":439},{"width":44,"y":163,"height":36,"name":"test resources/body_base_0001_1","x":185},{"width":44,"y":163,"height":36,"name":"test resources/body_cost_0011_1","x":277},{"width":44,"y":163,"height":36,"name":"test resources/body_spec_0001_1","x":231},{"width":17,"y":229,"height":20,"name":"test resources/fleg_base_0001_1","x":20},{"width":17,"y":217,"height":20,"name":"test resources/fleg_cost_0005_1","x":347},{"width":17,"y":223,"height":20,"name":"test resources/fleg_spec_0001_1","x":404},{"width":44,"y":163,"height":36,"name":"test resources/body_cost_0005_1_dres","x":1},{"width":71,"y":142,"height":35,"name":"test resources/body_tail_0001_1","x":439},{"width":71,"y":1,"height":79,"name":"test resources/head_hair_0007_1","x":1},{"width":71,"y":82,"height":79,"name":"test resources/head_hats_0001_1","x":1},{"width":33,"y":179,"height":42,"name":"test resources/weap_farm_0001_3","x":369},{"width":21,"y":201,"height":26,"name":"test resources/farm_base_0001_1","x":70},{"width":21,"y":201,"height":26,"name":"test resources/farm_cost_0005_1","x":231},{"width":21,"y":201,"height":26,"name":"test resources/farm_spec_0001_1","x":1},{"width":31,"y":179,"height":36,"name":"test resources/shld_farm_0001_3","x":472},{"width":71,"y":82,"height":79,"name":"test resources/head_hair_0005_1_back","x":220},{"width":71,"y":82,"height":58,"name":"test resources/body_wing_0001_1","x":366},{"width":71,"y":82,"height":58,"name":"test resources/body_wing_0001_3","x":439},{"width":71,"y":1,"height":79,"name":"test resources/head_hair_0005_3_back","x":74},{"width":71,"y":142,"height":35,"name":"test resources/body_tail_0001_3","x":366},{"width":21,"y":201,"height":26,"name":"test resources/barm_base_0001_3","x":47},{"width":21,"y":201,"height":26,"name":"test resources/barm_cost_0005_3","x":139},{"width":21,"y":201,"height":26,"name":"test resources/barm_spec_0001_3","x":93},{"width":17,"y":217,"height":20,"name":"test resources/bleg_base_0001_3","x":328},{"width":17,"y":223,"height":20,"name":"test resources/bleg_cost_0005_3","x":385},{"width":17,"y":217,"height":20,"name":"test resources/bleg_spec_0001_3","x":458},{"width":44,"y":179,"height":36,"name":"test resources/body_base_0001_3","x":323},{"width":44,"y":163,"height":36,"name":"test resources/body_cost_0011_3","x":47},{"width":44,"y":163,"height":36,"name":"test resources/body_spec_0001_3","x":139},{"width":17,"y":217,"height":20,"name":"test resources/fleg_base_0001_3","x":477},{"width":17,"y":223,"height":20,"name":"test resources/fleg_cost_0005_3","x":366},{"width":17,"y":229,"height":20,"name":"test resources/fleg_spec_0001_3","x":1},{"width":44,"y":163,"height":36,"name":"test resources/body_cost_0005_3_dres","x":93},{"width":71,"y":1,"height":79,"name":"test resources/head_base_0001_3","x":147},{"width":16,"y":163,"height":7,"name":"test resources/head_mous_0004_3","x":323},{"width":30,"y":201,"height":16,"name":"test resources/head_eyes_0001_3","x":277},{"width":71,"y":1,"height":79,"name":"test resources/head_hair_0007_3","x":293},{"width":71,"y":1,"height":79,"name":"test resources/head_hats_0001_3","x":220},{"width":71,"y":82,"height":79,"name":"test resources/head_mask_0002_3","x":74},{"width":71,"y":1,"height":79,"name":"test resources/head_spec_0001_3","x":366},{"width":21,"y":201,"height":26,"name":"test resources/farm_base_0001_3","x":162},{"width":21,"y":201,"height":26,"name":"test resources/farm_cost_0005_3","x":116},{"width":21,"y":201,"height":26,"name":"test resources/farm_spec_0001_3","x":24}]}
+{
+    "imagePath": "bones_human01_tex.png",
+    "width": 512,
+    "height": 256,
+    "name": "bones_human01",
+    "SubTexture": [
+        {
+            "width": 31,
+            "y": 179,
+            "height": 36,
+            "name": "test resources/shld_farm_0001_1",
+            "x": 439
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/barm_base_0001_1",
+            "x": 185
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/barm_cost_0005_1",
+            "x": 208
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/barm_spec_0001_1",
+            "x": 254
+        },
+        {
+            "width": 33,
+            "y": 179,
+            "height": 42,
+            "name": "test resources/weap_farm_0001_1",
+            "x": 404
+        },
+        {
+            "width": 17,
+            "y": 217,
+            "height": 20,
+            "name": "test resources/bleg_base_0001_1",
+            "x": 309
+        },
+        {
+            "width": 17,
+            "y": 217,
+            "height": 20,
+            "name": "test resources/bleg_cost_0005_1",
+            "x": 439
+        },
+        {
+            "width": 17,
+            "y": 219,
+            "height": 20,
+            "name": "test resources/bleg_spec_0001_1",
+            "x": 277
+        },
+        {
+            "width": 71,
+            "y": 82,
+            "height": 79,
+            "name": "test resources/head_mask_0002_1",
+            "x": 293
+        },
+        {
+            "width": 71,
+            "y": 82,
+            "height": 79,
+            "name": "test resources/head_base_0001_1",
+            "x": 147
+        },
+        {
+            "width": 71,
+            "y": 1,
+            "height": 79,
+            "name": "test resources/head_spec_0001_1",
+            "x": 439
+        },
+        {
+            "width": 44,
+            "y": 163,
+            "height": 36,
+            "name": "test resources/body_base_0001_1",
+            "x": 185
+        },
+        {
+            "width": 44,
+            "y": 163,
+            "height": 36,
+            "name": "test resources/body_cost_0011_1",
+            "x": 277
+        },
+        {
+            "width": 44,
+            "y": 163,
+            "height": 36,
+            "name": "test resources/body_spec_0001_1",
+            "x": 231
+        },
+        {
+            "width": 17,
+            "y": 229,
+            "height": 20,
+            "name": "test resources/fleg_base_0001_1",
+            "x": 20
+        },
+        {
+            "width": 17,
+            "y": 217,
+            "height": 20,
+            "name": "test resources/fleg_cost_0005_1",
+            "x": 347
+        },
+        {
+            "width": 17,
+            "y": 223,
+            "height": 20,
+            "name": "test resources/fleg_spec_0001_1",
+            "x": 404
+        },
+        {
+            "width": 44,
+            "y": 163,
+            "height": 36,
+            "name": "test resources/body_cost_0005_1_dres",
+            "x": 1
+        },
+        {
+            "width": 71,
+            "y": 142,
+            "height": 35,
+            "name": "test resources/body_tail_0001_1",
+            "x": 439
+        },
+        {
+            "width": 71,
+            "y": 1,
+            "height": 79,
+            "name": "test resources/head_hair_0007_1",
+            "x": 1
+        },
+        {
+            "width": 71,
+            "y": 82,
+            "height": 79,
+            "name": "test resources/head_hats_0001_1",
+            "x": 1
+        },
+        {
+            "width": 33,
+            "y": 179,
+            "height": 42,
+            "name": "test resources/weap_farm_0001_3",
+            "x": 369
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/farm_base_0001_1",
+            "x": 70
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/farm_cost_0005_1",
+            "x": 231
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/farm_spec_0001_1",
+            "x": 1
+        },
+        {
+            "width": 31,
+            "y": 179,
+            "height": 36,
+            "name": "test resources/shld_farm_0001_3",
+            "x": 472
+        },
+        {
+            "width": 71,
+            "y": 82,
+            "height": 79,
+            "name": "test resources/head_hair_0005_1_back",
+            "x": 220
+        },
+        {
+            "width": 71,
+            "y": 82,
+            "height": 58,
+            "name": "test resources/body_wing_0001_1",
+            "x": 366
+        },
+        {
+            "width": 71,
+            "y": 82,
+            "height": 58,
+            "name": "test resources/body_wing_0001_3",
+            "x": 439
+        },
+        {
+            "width": 71,
+            "y": 1,
+            "height": 79,
+            "name": "test resources/head_hair_0005_3_back",
+            "x": 74
+        },
+        {
+            "width": 71,
+            "y": 142,
+            "height": 35,
+            "name": "test resources/body_tail_0001_3",
+            "x": 366
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/barm_base_0001_3",
+            "x": 47
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/barm_cost_0005_3",
+            "x": 139
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/barm_spec_0001_3",
+            "x": 93
+        },
+        {
+            "width": 17,
+            "y": 217,
+            "height": 20,
+            "name": "test resources/bleg_base_0001_3",
+            "x": 328
+        },
+        {
+            "width": 17,
+            "y": 223,
+            "height": 20,
+            "name": "test resources/bleg_cost_0005_3",
+            "x": 385
+        },
+        {
+            "width": 17,
+            "y": 217,
+            "height": 20,
+            "name": "test resources/bleg_spec_0001_3",
+            "x": 458
+        },
+        {
+            "width": 44,
+            "y": 179,
+            "height": 36,
+            "name": "test resources/body_base_0001_3",
+            "x": 323
+        },
+        {
+            "width": 44,
+            "y": 163,
+            "height": 36,
+            "name": "test resources/body_cost_0011_3",
+            "x": 47
+        },
+        {
+            "width": 44,
+            "y": 163,
+            "height": 36,
+            "name": "test resources/body_spec_0001_3",
+            "x": 139
+        },
+        {
+            "width": 17,
+            "y": 217,
+            "height": 20,
+            "name": "test resources/fleg_base_0001_3",
+            "x": 477
+        },
+        {
+            "width": 17,
+            "y": 223,
+            "height": 20,
+            "name": "test resources/fleg_cost_0005_3",
+            "x": 366
+        },
+        {
+            "width": 17,
+            "y": 229,
+            "height": 20,
+            "name": "test resources/fleg_spec_0001_3",
+            "x": 1
+        },
+        {
+            "width": 44,
+            "y": 163,
+            "height": 36,
+            "name": "test resources/body_cost_0005_3_dres",
+            "x": 93
+        },
+        {
+            "width": 71,
+            "y": 1,
+            "height": 79,
+            "name": "test resources/head_base_0001_3",
+            "x": 147
+        },
+        {
+            "width": 16,
+            "y": 163,
+            "height": 7,
+            "name": "test resources/head_mous_0004_3",
+            "x": 323
+        },
+        {
+            "width": 30,
+            "y": 201,
+            "height": 16,
+            "name": "test resources/head_eyes_0001_3",
+            "x": 277
+        },
+        {
+            "width": 71,
+            "y": 1,
+            "height": 79,
+            "name": "test resources/head_hair_0007_3",
+            "x": 293
+        },
+        {
+            "width": 71,
+            "y": 1,
+            "height": 79,
+            "name": "test resources/head_hats_0001_3",
+            "x": 220
+        },
+        {
+            "width": 71,
+            "y": 82,
+            "height": 79,
+            "name": "test resources/head_mask_0002_3",
+            "x": 74
+        },
+        {
+            "width": 71,
+            "y": 1,
+            "height": 79,
+            "name": "test resources/head_spec_0001_3",
+            "x": 366
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/farm_base_0001_3",
+            "x": 162
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/farm_cost_0005_3",
+            "x": 116
+        },
+        {
+            "width": 21,
+            "y": 201,
+            "height": 26,
+            "name": "test resources/farm_spec_0001_3",
+            "x": 24
+        }
+    ]
+}
