@@ -1,11 +1,8 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -16,6 +13,7 @@ var MainScene = /** @class */ (function (_super) {
     __extends(MainScene, _super);
     function MainScene() {
         var _this = _super.call(this, "DragonBonesTest") || this;
+        _this.CHANGE_COUNT = 30;
         _this.factory = null;
         _this.arms = [];
         _this.armNum = 0;
@@ -26,7 +24,7 @@ var MainScene = /** @class */ (function (_super) {
         return _this;
     }
     MainScene.prototype.preload = function () {
-        this.load.atlas("sprites", "resource/spritesheet.png", "resource/spritesheet.json");
+        // this.load.atlas("sprites", "resource/spritesheet.png", "resource/spritesheet.json");
         // armature resource
         this.load.dragonbone("human01", "resource/human01/bones_human01_tex.png", "resource/human01/bones_human01_tex.json", "resource/human01/bones_human01_ske.dbbin", null, null, { responseType: "arraybuffer" });
         // replace target
@@ -45,8 +43,12 @@ var MainScene = /** @class */ (function (_super) {
         //     null,
         //     { responseType: "arraybuffer" },
         // );
-        this.load.image("human02", "resource/human02/bones_human01_tex.png");
+        // this.load.image("human02", "resource/human02/bones_human01_tex.png");
         // MultiTextureBatching
+        // test pot
+        for (var i = 1; i <= 30; i++) {
+            this.load.image("bones_human01_tex_" + this.pad(i), "resource/replacedTextures/potFalse/bones_human01_tex_" + this.pad(i) + ".png");
+        }
     };
     MainScene.prototype.create = function () {
         this.factory = this.add.dragonBoneFactory(); //this.dragonbone.factory;
@@ -125,11 +127,11 @@ var MainScene = /** @class */ (function (_super) {
     };
     // change armature number
     MainScene.prototype.addArmNum = function () {
-        this.updateArmNum(2);
+        this.updateArmNum(this.CHANGE_COUNT);
         this.debugOperation("add armature num");
     };
     MainScene.prototype.minArmNum = function () {
-        this.updateArmNum(-2);
+        this.updateArmNum(-this.CHANGE_COUNT);
         this.debugOperation("minus armature num");
     };
     MainScene.prototype.updateArmNum = function (val) {
@@ -196,7 +198,11 @@ var MainScene = /** @class */ (function (_super) {
             // let tarSkin = this.factory.getArmatureData("Armature", "human02").defaultSkin;
             // this.factory.replaceSkin(element.armature, tarSkin);
             // armature方法
-            element.armature.replacedTexture = this.textures.get("human02");
+            var replacedKey = "bones_human01_tex_" + this.pad(i + 1);
+            if (!this.textures.exists(replacedKey))
+                continue;
+            var tex = this.textures.get(replacedKey);
+            element.armature.replacedTexture = tex;
         }
         this.debugOperation("change texture");
     };
@@ -216,6 +222,9 @@ var MainScene = /** @class */ (function (_super) {
     MainScene.prototype.ctrlMove = function () {
         this.isMoving = !this.isMoving;
         this.debugOperation("change movement");
+    };
+    MainScene.prototype.pad = function (d) {
+        return (d < 10) ? '0' + d.toString() : d.toString();
     };
     MainScene.WEAPONLIST = ["weapon_1004_r", "weapon_1004b_r", "weapon_1004c_r", "weapon_1004d_r", "weapon_1004e_r"];
     MainScene.SLOTSTOBECHANGED = ["weap_barm_3", "weap_farm_3", "weap_farm_1", "weap_barm_1", "head_spec_3", "head_spec_1"];

@@ -3,6 +3,8 @@ class MainScene extends Phaser.Scene {
     private static readonly WEAPONLIST: string[] = ["weapon_1004_r", "weapon_1004b_r", "weapon_1004c_r", "weapon_1004d_r", "weapon_1004e_r"];
     private static readonly SLOTSTOBECHANGED: string[] = ["weap_barm_3", "weap_farm_3", "weap_farm_1", "weap_barm_1", "head_spec_3", "head_spec_1"];
 
+    private readonly CHANGE_COUNT: number = 30;
+
     private factory: dragonBones.phaser.Factory = null;
 
     private fpsText: Phaser.GameObjects.Text;
@@ -20,7 +22,7 @@ class MainScene extends Phaser.Scene {
     }
 
     preload(): void {
-        this.load.atlas("sprites", "resource/spritesheet.png", "resource/spritesheet.json");
+        // this.load.atlas("sprites", "resource/spritesheet.png", "resource/spritesheet.json");
 
         // armature resource
         this.load.dragonbone(
@@ -49,9 +51,14 @@ class MainScene extends Phaser.Scene {
         //     null,
         //     { responseType: "arraybuffer" },
         // );
-        this.load.image("human02", "resource/human02/bones_human01_tex.png");
+        // this.load.image("human02", "resource/human02/bones_human01_tex.png");
 
         // MultiTextureBatching
+
+        // test pot
+        for (let i = 1; i <= 30; i++) {
+            this.load.image("bones_human01_tex_" + this.pad(i), `resource/replacedTextures/potFalse/bones_human01_tex_${this.pad(i)}.png`);
+        }
     }
 
     create(): void {
@@ -138,11 +145,11 @@ class MainScene extends Phaser.Scene {
 
     // change armature number
     private addArmNum() {
-        this.updateArmNum(2);
+        this.updateArmNum(this.CHANGE_COUNT);
         this.debugOperation("add armature num");
     }
     private minArmNum() {
-        this.updateArmNum(-2);
+        this.updateArmNum(-this.CHANGE_COUNT);
         this.debugOperation("minus armature num");
     }
     private updateArmNum(val: number) {
@@ -216,7 +223,10 @@ class MainScene extends Phaser.Scene {
             // this.factory.replaceSkin(element.armature, tarSkin);
 
             // armature方法
-            element.armature.replacedTexture = this.textures.get("human02");
+            const replacedKey = "bones_human01_tex_" + this.pad(i + 1);
+            if (!this.textures.exists(replacedKey)) continue;
+            const tex = this.textures.get(replacedKey);
+            element.armature.replacedTexture = tex;
         }
 
         this.debugOperation("change texture");
@@ -241,5 +251,9 @@ class MainScene extends Phaser.Scene {
         this.isMoving = !this.isMoving;
 
         this.debugOperation("change movement");
+    }
+
+    private pad(d: number): string {
+        return (d < 10) ? '0' + d.toString() : d.toString();
     }
 }
